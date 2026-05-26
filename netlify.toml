@@ -5,15 +5,6 @@
   publish = "."
   command = ""
 
-# Pretty 404 page (fallback to index for SPA-like behavior is NOT desired here
-# because dmaz is a single-page static site; we just serve a 404 if not found).
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-  force = false
-  conditions = { Role = ["anonymous"] }
-
 # Security & caching headers
 [[headers]]
   for = "/*"

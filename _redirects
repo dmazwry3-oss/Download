@@ -1,3 +1,7 @@
-# Netlify _redirects fallback (in case netlify.toml is not picked up)
-# Pretty share URL: /d/<scribd-id> -> homepage with prefilled URL
+# Netlify _redirects
+# Pretty share URL: /d/<scribd-id> -> homepage with the URL prefilled.
 /d/:id    /?url=https://www.scribd.com/document/:id    302
+
+# Catch-all: any unknown path goes back to the homepage so users
+# don't see Netlify's default "Page not found".
+/*        /index.html                                   200
