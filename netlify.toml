@@ -1,0 +1,39 @@
+# Netlify configuration for dmaz - Scribd Downloader
+# Static site, no build step required.
+
+[build]
+  publish = "."
+  command = ""
+
+# Pretty 404 page (fallback to index for SPA-like behavior is NOT desired here
+# because dmaz is a single-page static site; we just serve a 404 if not found).
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false
+  conditions = { Role = ["anonymous"] }
+
+# Security & caching headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "clipboard-read=(self), clipboard-write=(self)"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

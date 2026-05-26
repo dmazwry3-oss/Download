@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="dmaz - Download dokumen Scribd dengan cepat dan gratis. Tempel URL Scribd, dapatkan link download instan." />
+  <meta name="theme-color" content="#0b1220" />
+  <title>dmaz - Scribd Downloader</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%236366f1'/%3E%3Ctext x='50' y='66' font-family='Inter,Arial,sans-serif' font-size='52' font-weight='700' text-anchor='middle' fill='white'%3Ed%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a href="/" class="brand" aria-label="dmaz home">
+      <span class="brand-mark">d</span>
+      <span class="brand-name">dmaz</span>
+    </a>
+    <nav class="nav">
+      <a href="#how">Cara Pakai</a>
+      <a href="#faq">FAQ</a>
+      <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1 class="title">
+        Scribd Downloader<br />
+        <span class="gradient">cepat &amp; gratis</span>
+      </h1>
+      <p class="subtitle">
+        Tempel URL dokumen Scribd di bawah, dmaz akan menyiapkan link download
+        untuk Anda dalam hitungan detik.
+      </p>
+
+      <form id="dl-form" class="form" autocomplete="off" novalidate>
+        <div class="input-group">
+          <input
+            id="url"
+            type="url"
+            inputmode="url"
+            spellcheck="false"
+            placeholder="https://www.scribd.com/document/123456/Judul-Dokumen"
+            aria-label="URL Scribd"
+            required
+          />
+          <button id="paste-btn" type="button" class="ghost-btn" title="Tempel dari clipboard">
+            Paste
+          </button>
+        </div>
+        <button id="submit-btn" type="submit" class="primary-btn">
+          <span class="btn-label">Buat Link Download</span>
+          <span class="btn-spinner" aria-hidden="true"></span>
+        </button>
+      </form>
+
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+
+      <section id="result" class="result hidden" aria-live="polite">
+        <h2 class="result-title">Link download siap</h2>
+        <div class="result-card">
+          <div class="result-row">
+            <span class="result-label">Dokumen</span>
+            <span id="doc-meta" class="result-value">-</span>
+          </div>
+          <div class="result-row">
+            <span class="result-label">Mirror utama</span>
+            <a id="primary-link" class="result-link" target="_blank" rel="noopener noreferrer">-</a>
+          </div>
+          <div class="mirror-list" id="mirror-list"></div>
+        </div>
+        <div class="actions">
+          <a id="open-btn" class="primary-btn" target="_blank" rel="noopener noreferrer">
+            Buka Halaman Download
+          </a>
+          <button id="copy-btn" type="button" class="ghost-btn">Salin Link</button>
+          <button id="reset-btn" type="button" class="ghost-btn">Reset</button>
+        </div>
+      </section>
+    </section>
+
+    <section id="how" class="how">
+      <h2>Cara Pakai</h2>
+      <ol class="steps">
+        <li>
+          <span class="step-num">1</span>
+          <div>
+            <h3>Salin URL Scribd</h3>
+            <p>Buka dokumen di Scribd, salin URL dari address bar browser.</p>
+          </div>
+        </li>
+        <li>
+          <span class="step-num">2</span>
+          <div>
+            <h3>Tempel di dmaz</h3>
+            <p>Tempel URL ke kolom input di atas, lalu klik <em>Buat Link Download</em>.</p>
+          </div>
+        </li>
+        <li>
+          <span class="step-num">3</span>
+          <div>
+            <h3>Unduh dokumen</h3>
+            <p>Klik tombol <em>Buka Halaman Download</em> dan ikuti instruksi di halaman tujuan.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section id="faq" class="faq">
+      <h2>FAQ</h2>
+      <details>
+        <summary>Format URL apa saja yang didukung?</summary>
+        <p>
+          dmaz mendukung URL Scribd dengan path <code>/document/</code>,
+          <code>/doc/</code>, atau <code>/presentation/</code>.
+          Contoh: <code>https://www.scribd.com/document/123456/Judul</code>.
+        </p>
+      </details>
+      <details>
+        <summary>Apakah dmaz menyimpan URL saya?</summary>
+        <p>
+          Tidak. dmaz adalah situs statis tanpa server &mdash; semua proses
+          dilakukan langsung di browser Anda. Tidak ada data yang dikirim ke
+          server kami.
+        </p>
+      </details>
+      <details>
+        <summary>Bagaimana dmaz bekerja?</summary>
+        <p>
+          dmaz mengubah URL Scribd Anda menjadi URL pada layanan mirror
+          (<code>scribd.vdownloaders.com</code>) yang menyediakan halaman
+          download. dmaz hanya menjembatani &mdash; semua proses ekstraksi
+          dilakukan oleh layanan mirror tersebut.
+        </p>
+      </details>
+      <details>
+        <summary>Saya mendapat error "URL tidak valid".</summary>
+        <p>
+          Pastikan URL diawali dengan <code>https://</code> dan mengandung
+          salah satu path yang didukung. Hindari URL hasil pencarian, profil,
+          atau koleksi.
+        </p>
+      </details>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>
+      &copy; <span id="year"></span> dmaz &middot; Dibangun untuk pelajar &amp; peneliti.
+      Hormati hak cipta &amp; kebijakan Scribd.
+    </p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
